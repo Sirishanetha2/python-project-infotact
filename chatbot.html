@@ -1,0 +1,18 @@
+<h2>Chat with the Bot</h2>
+<form method="GET" action="{% url 'chatbot_interaction' %}">
+    <input type="text" name="user_input" placeholder="Ask me anything...">
+    <button type="submit">Send</button>
+</form>
+<div id="response"></div>
+
+<script>
+    // Handle chatbot response (AJAX example)
+    document.querySelector('form').onsubmit = function(e) {
+        e.preventDefault();
+        fetch('{% url 'chatbot_interaction' %}?user_input=' + document.querySelector('input[name="user_input"]').value)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('response').innerText = 'Bot: ' + data.response;
+        });
+    }
+</script>
